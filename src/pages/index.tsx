@@ -49,7 +49,7 @@ export default function Home() {
     <div className="container">
 
       <Head>
-        <title>Copy content DIV</title>
+        <title>Assinatura de email - Simples e gratuito</title>
       </Head>
 
       <ProfileProvider>
@@ -60,7 +60,10 @@ export default function Home() {
               <svg enableBackground="new 0 0 511.96 511.96" height="55" viewBox="0 0 511.96 511.96" width="55" xmlns="http://www.w3.org/2000/svg">
                 <path fill="#FFF" d="m371.763 511.892c-15.619 0-31.121-4.567-44.594-13.531l-107.352-71.428c-9.196-6.119-11.69-18.534-5.572-27.73 6.119-9.195 18.535-11.691 27.73-5.572l107.352 71.428c11.664 7.762 25.729 9.025 38.587 3.467 12.858-5.556 21.576-16.662 23.917-30.471l59.454-350.679c2.544-15.007-3.121-29.532-15.154-38.854-12.035-9.323-27.517-11.178-41.416-4.966l-350.803 156.854c-13.698 6.125-22.621 18.707-23.869 33.657-1.249 14.951 5.463 28.839 17.955 37.15l48.979 32.588c9.196 6.119 11.69 18.534 5.572 27.73-6.119 9.194-18.535 11.69-27.73 5.572l-48.979-32.587c-52.669-33.74-45.777-116.101 11.745-140.626l350.802-156.855c27.188-12.155 58.699-8.378 82.24 9.86 23.541 18.236 35.072 47.803 30.096 77.161l-59.454 350.679c-4.58 27.017-22.333 49.635-47.487 60.504-10.302 4.451-21.189 6.649-32.019 6.649zm-197.866-19.932v-92.351c0-17.991 7.33-35.572 20.111-48.234l187.964-186.207c7.848-7.773 7.907-20.437.133-28.283-7.773-7.847-20.438-7.908-28.283-.133l-187.965 186.207c-20.311 20.122-31.96 48.06-31.96 76.65v92.351c0 11.046 8.954 20 20 20s20-8.954 20-20z" />
               </svg>
-              <span style={{color: '#FFF', fontSize: '1.4rem', fontWeight: 600, paddingLeft: 10}}>Simple | Mail Signature</span>
+              <span style={{color: '#FFF', fontSize: '1.4rem', fontWeight: 600, paddingLeft: 10, lineHeight: 1}}>
+                Assinatura de email <br/>
+                <small style={{fontSize: '1rem', fontWeight: 400}}>Simples e gratuito</small>
+              </span>
             </div>
           </div>
           <div>
@@ -79,6 +82,7 @@ export default function Home() {
                 <CardTwo />
               )}
           </div>
+          
           <button className="copyButton" type="button" onClick={handleCopy}> Copiar </button>
 
           {copied && (
@@ -100,8 +104,7 @@ export default function Home() {
 
       .sidebar {
         -webkit-font-smoothing: antialiased;
-        color: #33475b;
-        font-family: "AvenirNext","Helvetica Neue",Helvetica,Arial,sans-serif;
+        color: #FFF;
         line-height: 1.625;
         box-sizing: border-box;
         position: relative;
@@ -113,14 +116,11 @@ export default function Home() {
         display: flex;
         flex-direction: column;
         background-color: rgb(51, 71, 91);
-        will-change: transform;
         transform: translateX(0px);
       }
 
       .sidebar > div:first-child {
         -webkit-font-smoothing: antialiased;
-        color: #33475b;
-        font-family: "AvenirNext","Helvetica Neue",Helvetica,Arial,sans-serif;
         line-height: 1.625;
         box-sizing: border-box;
         position: relative;
@@ -132,8 +132,6 @@ export default function Home() {
 
       .sidebar > div:last-child {
         -webkit-font-smoothing: antialiased;
-        color: #33475b;
-        font-family: "AvenirNext","Helvetica Neue",Helvetica,Arial,sans-serif;
         line-height: 1.625;
         box-sizing: border-box;
         position: relative;
@@ -169,13 +167,13 @@ export default function Home() {
 
         text-align: center;
         line-height: 1.5;
-        color: #6804db;
+        color: var(--firstColor);
 
         transition-duration: .8s, .4s;
         transition-property: transform, opacity;
       }
       .copied strong {
-        color: #4f04a5;
+        color: var(--firstColor);
         display: block;
         font-size: 1.8rem;
       }
@@ -191,7 +189,7 @@ export default function Home() {
 
         cursor: pointer;
 
-        background-color: #6804db;
+        background-color: var(--firstColor);
         color: #FFF;
         font-size: 1.4rem;
         
@@ -204,7 +202,7 @@ export default function Home() {
       }
 
       .copyButton:hover {
-        background-color: #5606b1;
+        background-color: var(--firstColorDark);
         transform: scale(1.04)
       }
       `}</style>

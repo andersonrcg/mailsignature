@@ -1,21 +1,21 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 
-interface ProfileContextData {
+interface mailSignatureData {
     nome: string;
     sobrenome: string;
     cargo: string;
     departamento: string;
     nomeEmpresa: string;
     campoPersonalizado: string;
+    celular: string;
+    telefone: string;
+    email: string;
     mainColor: string;
+}
 
-    setnome: (nome: string) => void;
-    setsobrenome: (sobrenome: string) => void;
-    setcargo: (cargo: string) => void;
-    setdepartamento: (departamento: string) => void;
-    setnomeEmpresa: (departamento: string) => void;
-    setcampoPersonalizado: (departamento: string) => void;
-    setmainColor: (departamento: string) => void;
+interface ProfileContextData {
+    data: mailSignatureData;
+    setData: (data: mailSignatureData) => void;
 }
 
 interface ProfileProviderProps {
@@ -25,32 +25,57 @@ interface ProfileProviderProps {
 export const ProfileContext = createContext({} as ProfileContextData);
 
 export function ProfileProvider({ children }: ProfileProviderProps) {
-    const [nome, setnome] = useState('');
-    const [sobrenome, setsobrenome] = useState('');
-    const [cargo, setcargo] = useState('');
-    const [departamento, setdepartamento] = useState('');
-    const [nomeEmpresa, setnomeEmpresa] = useState('');
-    const [campoPersonalizado, setcampoPersonalizado] = useState('');
+    const [data, setData] = useState({
+        nome: '',
+        sobrenome: '',
+        cargo: '',
+        departamento: '',
+        nomeEmpresa: '',
+        campoPersonalizado: '',
+        celular: '',
+        telefone: '',
+        email: '',
+        mainColor: '#444',
+    });
 
-    const [mainColor, setmainColor] = useState('#5606b1');
+    useEffect(() => {
+        const mailSignatureData = localStorage.getItem('mailSignatureData')
+        if(mailSignatureData)
+            setData(JSON.parse(mailSignatureData))
+    }, [])
 
-    return (
-        <ProfileContext.Provider value={{
+    useEffect(() => {
+        const {
             nome,
             sobrenome,
             cargo,
             departamento,
             nomeEmpresa,
             campoPersonalizado,
-            mainColor,
+            celular,
+            telefone,
+            email,
+            mainColor
+        } = data;
 
-            setnome,
-            setsobrenome,
-            setcargo,
-            setdepartamento,
-            setnomeEmpresa,
-            setcampoPersonalizado,
-            setmainColor,
+        localStorage.setItem('mailSignatureData', JSON.stringify({
+            nome,
+            sobrenome,
+            cargo,
+            departamento,
+            nomeEmpresa,
+            campoPersonalizado,
+            celular,
+            telefone,
+            email,
+            mainColor
+        }))
+    }, [ data ])
+
+    return (
+        <ProfileContext.Provider value={{
+            data,
+            setData
         }}>
             { children}
         </ProfileContext.Provider>

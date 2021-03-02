@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { ProfileContext } from "../contexts/ProfileContext";
 
 export function CardTwo() {
+    const { data } = useContext(ProfileContext);
     const {
         nome,
         sobrenome,
@@ -9,8 +10,11 @@ export function CardTwo() {
         departamento,
         nomeEmpresa,
         campoPersonalizado,
+        celular,
+        telefone,
+        email,
         mainColor
-    } = useContext(ProfileContext);
+    } = data;
 
     return (
         <>
@@ -79,48 +83,68 @@ export function CardTwo() {
                                         <td>
                                             <table cellPadding={0} cellSpacing={0} className="sc-gPEVay eQYmiW" style={{ verticalAlign: '-webkit-baseline-middle', fontSize: 'medium', fontFamily: 'Arial' }}>
                                                 <tbody>
-                                                    <tr style={{ verticalAlign: 'middle', height: 25 }}>
-                                                        <td width={30} style={{ verticalAlign: 'middle' }}>
-                                                            <table cellPadding={0} cellSpacing={0} className="sc-gPEVay eQYmiW" style={{ verticalAlign: '-webkit-baseline-middle', fontSize: 'medium', fontFamily: 'Arial' }}>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td style={{ verticalAlign: 'bottom' }}>
-                                                                            <span color={mainColor} className="sc-jlyJG bbyJzT" style={{ display: 'block', backgroundColor: `${mainColor}`, width: 11 }}>
-                                                                                <img src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/phone-icon-2x.png" color={mainColor} width={13} className="sc-iRbamj blSEcj" style={{ display: 'block', backgroundColor: `${mainColor}` }} />
-                                                                            </span>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-                                                        <td style={{ padding: '0px', color: 'rgb(0, 0, 0)' }}>
-                                                            <a href="tel:(11) 99999-9999" color="#000000" className="sc-gipzik iyhjGb" style={{ textDecoration: 'none', color: 'rgb(0, 0, 0)', fontSize: '12px' }}>
-                                                                <span>(11) 99999-9999</span>
-                                                            </a> | <a href="tel:(11) 99999-9999" color="#000000" className="sc-gipzik iyhjGb" style={{ textDecoration: 'none', color: 'rgb(0, 0, 0)', fontSize: '12px' }}>
-                                                                <span>(11) 99999-9999</span>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr style={{ verticalAlign: 'middle', height: 25 }}>
-                                                        <td width={30} style={{ verticalAlign: 'middle' }}>
-                                                            <table cellPadding={0} cellSpacing={0} className="sc-gPEVay eQYmiW" style={{ verticalAlign: '-webkit-baseline-middle', fontSize: 'medium', fontFamily: 'Arial' }}>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td style={{ verticalAlign: 'bottom' }}>
-                                                                            <span color={mainColor} className="sc-jlyJG bbyJzT" style={{ display: 'block', backgroundColor: `${mainColor}`, width: 11 }}>
-                                                                                <img src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/email-icon-2x.png" color={mainColor} width={13} className="sc-iRbamj blSEcj" style={{ display: 'block', backgroundColor: `${mainColor}` }} />
-                                                                            </span>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-                                                        <td style={{ padding: '0px' }}>
-                                                            <a href="mailto:endereco@email.com" color="#000000" className="sc-gipzik iyhjGb" style={{ textDecoration: 'none', color: 'rgb(0, 0, 0)', fontSize: '12px' }}>
-                                                                <span>endereco@email.com</span>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
+
+
+                                                    {(celular !== '' || telefone !== '') && (
+                                                        <tr style={{ verticalAlign: 'middle', height: 25 }}>
+                                                            <td width={30} style={{ verticalAlign: 'middle' }}>
+                                                                <table cellPadding={0} cellSpacing={0} className="sc-gPEVay eQYmiW" style={{ verticalAlign: '-webkit-baseline-middle', fontSize: 'medium', fontFamily: 'Arial' }}>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td style={{ verticalAlign: 'bottom' }}>
+                                                                                <span color={mainColor} className="sc-jlyJG bbyJzT" style={{ display: 'block', backgroundColor: `${mainColor}`, width: 11 }}>
+                                                                                    <img src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/phone-icon-2x.png" color={mainColor} width={13} className="sc-iRbamj blSEcj" style={{ display: 'block', backgroundColor: `${mainColor}` }} />
+                                                                                </span>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+
+                                                            <td style={{ padding: '0px', color: 'rgb(0, 0, 0)' }}>
+                                                                {celular !== '' && (
+                                                                    <a href={`tel:${celular}`} color="#000000" style={{ textDecoration: 'none', color: 'rgb(0, 0, 0)', fontSize: 12 }}>
+                                                                        <span>{celular}</span>
+                                                                    </a>
+                                                                )}
+
+                                                                {(celular !== '' && telefone !== '') && (
+                                                                    <> | </>
+                                                                )}
+
+                                                                {telefone !== '' && (
+                                                                    <a href={`tel:${telefone}`} color="#000000" style={{ textDecoration: 'none', color: 'rgb(0, 0, 0)', fontSize: 12 }}>
+                                                                        <span>{telefone}</span>
+                                                                    </a>
+                                                                )}
+                                                            </td>
+                                                        </tr>
+                                                    )}
+
+                                                    {email !== '' && (
+                                                        <tr style={{ verticalAlign: 'middle', height: 25 }}>
+                                                            <td width={30} style={{ verticalAlign: 'middle' }}>
+                                                                <table cellPadding={0} cellSpacing={0} className="sc-gPEVay eQYmiW" style={{ verticalAlign: '-webkit-baseline-middle', fontSize: 'medium', fontFamily: 'Arial' }}>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td style={{ verticalAlign: 'bottom' }}>
+                                                                                <span color={mainColor} className="sc-jlyJG bbyJzT" style={{ display: 'block', backgroundColor: `${mainColor}`, width: 11 }}>
+                                                                                    <img src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/email-icon-2x.png" color={mainColor} width={13} className="sc-iRbamj blSEcj" style={{ display: 'block', backgroundColor: `${mainColor}` }} />
+                                                                                </span>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+
+                                                            <td style={{ padding: 0 }}>
+                                                                <a href={`mailto:${email}`} color="#000000" style={{ textDecoration: 'none', color: 'rgb(0, 0, 0)', fontSize: 12 }}>
+                                                                    <span>{email}</span>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    )}
+
                                                     <tr style={{ verticalAlign: 'middle', height: 25 }}>
                                                         <td width={30} style={{ verticalAlign: 'middle' }}>
                                                             <table cellPadding={0} cellSpacing={0} className="sc-gPEVay eQYmiW" style={{ verticalAlign: '-webkit-baseline-middle', fontSize: 'medium', fontFamily: 'Arial' }}>
