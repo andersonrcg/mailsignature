@@ -4,18 +4,27 @@ import { ChromePicker } from 'react-color';
 
 export function Form() {
     const [displayColorPicker, setdisplayColorPicker] = useState(false)
+    const [displayColorPickerTo, setdisplayColorPickerTo] = useState('mainColor')
 
     const {
         data,
-        setData
+        setData,
+        tabActive,
+        card,
+        _setCard
     } = useContext(ProfileContext)
 
     const handleChangeComplete = (color) => {
-        setData({...data, mainColor: `rgb(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b})`})
+        if(displayColorPickerTo === 'mainColor')
+            setData({ ...data, mainColor: `rgb(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b})` })
+        else if(displayColorPickerTo === 'socialColor')
+            setData({ ...data, socialColor: `rgb(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b})` })
+
     };
 
-    const _handleClick = () => {
+    const _handleClick = (to) => {
         setdisplayColorPicker(!false)
+        setdisplayColorPickerTo(to)
     };
 
     const _handleClose = () => {
@@ -32,93 +41,214 @@ export function Form() {
         celular,
         telefone,
         email,
-        mainColor
+        site,
+        endereco01,
+        endereco02,
+        endereco03,
+        endereco04,
+        facebook,
+        twitter,
+        linkedin,
+        instagram,
+        foto,
+        socialColor,
+        mainColor,
     } = data;
 
     return (
         <div className="container">
 
-            <div>
-                <span>
-                    <input id="nome" type="text" onChange={e => setData({...data, nome: e.currentTarget.value})} value={nome} className={`${nome ? 'notEmpty' : ''}`} />
-                    <label htmlFor="nome">Nome</label>
-                </span>
-            </div>
+            {tabActive === 0 && ( //Template
+                <div className="svgTemplates">
+                    Modelo 01
+                    <div className={card === 1 ? 'active' : null} onClick={() => _setCard(1)}>
+                        <div><img src="/templates/active.svg" alt="√"/></div>
+                        <img src="/templates/template-1.svg" alt="Template 01" />
+                    </div>
 
-            <div>
-                <span>
-                    <input id="sobrenome" type="text" onChange={e => setData({...data, sobrenome: e.currentTarget.value})} value={sobrenome} className={`${sobrenome ? 'notEmpty' : ''}`} />
-                    <label htmlFor="sobrenome">Sobrenome</label>
-                </span>
-            </div>
-
-            <div>
-                <span>
-                    <input id="cargo" type="text" onChange={e => setData({...data, cargo: e.currentTarget.value})} value={cargo} className={`${cargo ? 'notEmpty' : ''}`} />
-                    <label htmlFor="cargo">Cargo</label>
-                </span>
-            </div>
-
-            <div>
-                <span>
-                    <input id="departamento" type="text" onChange={e => setData({...data, departamento: e.currentTarget.value})} value={departamento} className={`${departamento ? 'notEmpty' : ''}`} />
-                    <label htmlFor="departamento">Departamento</label>
-                </span>
-            </div>
-
-            <div>
-                <span>
-                    <input id="nomeEmpresa" type="text" onChange={e => setData({...data, nomeEmpresa: e.currentTarget.value})} value={nomeEmpresa} className={`${nomeEmpresa ? 'notEmpty' : ''}`} />
-                    <label htmlFor="nomeEmpresa">Nome da empresa</label>
-                </span>
-            </div>
-
-            <div>
-                <span>
-                    <input id="campoPersonalizado" type="text" onChange={e => setData({...data, campoPersonalizado: e.currentTarget.value})} value={campoPersonalizado} className={`${campoPersonalizado ? 'notEmpty' : ''}`} />
-                    <label htmlFor="campoPersonalizado">Campo personalizado</label>
-                </span>
-            </div>
-
-            <h4>Contatos</h4>
-
-            <div>
-                <span>
-                    <input id="celular" type="text" onChange={e => setData({...data, celular: e.currentTarget.value})} value={celular} className={`${celular ? 'notEmpty' : ''}`} />
-                    <label htmlFor="celular">Celular</label>
-                </span>
-            </div>
-
-            <div>
-                <span>
-                    <input id="telefone" type="text" onChange={e => setData({...data, telefone: e.currentTarget.value})} value={telefone} className={`${telefone ? 'notEmpty' : ''}`} />
-                    <label htmlFor="telefone">Telefone</label>
-                </span>
-            </div>
-
-            <div>
-                <span>
-                    <input id="email" type="text" onChange={e => setData({...data, email: e.currentTarget.value})} value={email} className={`${email ? 'notEmpty' : ''}`} />
-                    <label htmlFor="email">Email</label>
-                </span>
-            </div>
-
-
-            <div className="selectColor">
-                <label>Cor principal:</label>
-                <div className="swatch" onClick={_handleClick}>
-                    <div className="mainColor" />
+                    Modelo 02
+                    <div className={card === 2 ? 'active' : null} onClick={() => _setCard(2)}>
+                        <div><img src="/templates/active.svg" alt="√"/></div>
+                        <img src="/templates/template-2.svg" alt="Template 02" />
+                    </div>
                 </div>
-            </div>
+            )}
 
-            { displayColorPicker && (
-                <div className="popover">
-                    <div className="cover" onClick={_handleClose} />
-                    <ChromePicker
-                        color={mainColor}
-                        onChangeComplete={handleChangeComplete}
-                    />
-                </div>
+            {tabActive === 100 && ( //Dados
+                <>
+                    <div>
+                        <span>
+                            <input id="nome" type="text" onChange={e => setData({ ...data, nome: e.currentTarget.value })} value={nome} className={`${nome ? 'notEmpty' : ''}`} />
+                            <label htmlFor="nome">Nome</label>
+                        </span>
+                    </div>
+
+                    <div>
+                        <span>
+                            <input id="sobrenome" type="text" onChange={e => setData({ ...data, sobrenome: e.currentTarget.value })} value={sobrenome} className={`${sobrenome ? 'notEmpty' : ''}`} />
+                            <label htmlFor="sobrenome">Sobrenome</label>
+                        </span>
+                    </div>
+
+                    <div>
+                        <span>
+                            <input id="cargo" type="text" onChange={e => setData({ ...data, cargo: e.currentTarget.value })} value={cargo} className={`${cargo ? 'notEmpty' : ''}`} />
+                            <label htmlFor="cargo">Cargo</label>
+                        </span>
+                    </div>
+
+                    <div>
+                        <span>
+                            <input id="departamento" type="text" onChange={e => setData({ ...data, departamento: e.currentTarget.value })} value={departamento} className={`${departamento ? 'notEmpty' : ''}`} />
+                            <label htmlFor="departamento">Departamento</label>
+                        </span>
+                    </div>
+
+                    <div>
+                        <span>
+                            <input id="nomeEmpresa" type="text" onChange={e => setData({ ...data, nomeEmpresa: e.currentTarget.value })} value={nomeEmpresa} className={`${nomeEmpresa ? 'notEmpty' : ''}`} />
+                            <label htmlFor="nomeEmpresa">Nome da empresa</label>
+                        </span>
+                    </div>
+
+                    <div>
+                        <span>
+                            <input id="campoPersonalizado" type="text" onChange={e => setData({ ...data, campoPersonalizado: e.currentTarget.value })} value={campoPersonalizado} className={`${campoPersonalizado ? 'notEmpty' : ''}`} />
+                            <label htmlFor="campoPersonalizado">Campo personalizado</label>
+                        </span>
+                    </div>
+
+                    <h4>Contatos</h4>
+
+                    <div>
+                        <span>
+                            <input id="celular" type="text" onChange={e => setData({ ...data, celular: e.currentTarget.value })} value={celular} className={`${celular ? 'notEmpty' : ''}`} />
+                            <label htmlFor="celular">Celular</label>
+                        </span>
+                    </div>
+
+                    <div>
+                        <span>
+                            <input id="telefone" type="text" onChange={e => setData({ ...data, telefone: e.currentTarget.value })} value={telefone} className={`${telefone ? 'notEmpty' : ''}`} />
+                            <label htmlFor="telefone">Telefone</label>
+                        </span>
+                    </div>
+
+                    <div>
+                        <span>
+                            <input id="email" type="text" onChange={e => setData({ ...data, email: e.currentTarget.value })} value={email} className={`${email ? 'notEmpty' : ''}`} />
+                            <label htmlFor="email">Email</label>
+                        </span>
+                    </div>
+
+                    <div>
+                        <span>
+                            <input id="site" type="text" onChange={e => setData({ ...data, site: e.currentTarget.value })} value={site} className={`${site ? 'notEmpty' : ''}`} />
+                            <label htmlFor="site">Site</label>
+                        </span>
+                    </div>
+
+                    <h4>Endereço</h4>
+
+                    <div>
+                        <span>
+                            <input id="endereco01" type="text" onChange={e => setData({ ...data, endereco01: e.currentTarget.value })} value={endereco01} className={`${endereco01 ? 'notEmpty' : ''}`} />
+                            <label htmlFor="endereco01">Endereço linha 1</label>
+                        </span>
+                    </div>
+
+                    <div>
+                        <span>
+                            <input id="endereco02" type="text" onChange={e => setData({ ...data, endereco02: e.currentTarget.value })} value={endereco02} className={`${endereco02 ? 'notEmpty' : ''}`} />
+                            <label htmlFor="endereco02">Endereço linha 2</label>
+                        </span>
+                    </div>
+
+                    <div>
+                        <span>
+                            <input id="endereco03" type="text" onChange={e => setData({ ...data, endereco03: e.currentTarget.value })} value={endereco03} className={`${endereco03 ? 'notEmpty' : ''}`} />
+                            <label htmlFor="endereco03">Endereço linha 3</label>
+                        </span>
+                    </div>
+
+                    <div>
+                        <span>
+                            <input id="endereco04" type="text" onChange={e => setData({ ...data, endereco04: e.currentTarget.value })} value={endereco04} className={`${endereco04 ? 'notEmpty' : ''}`} />
+                            <label htmlFor="endereco04">Endereço linha 4</label>
+                        </span>
+                    </div>
+
+                    <h4>Redes Sociais</h4>
+
+                    <div>
+                        <span>
+                            <input id="facebook" type="text" onChange={e => setData({ ...data, facebook: e.currentTarget.value })} value={facebook} className={`${facebook ? 'notEmpty' : ''}`} />
+                            <label htmlFor="facebook">Facebook</label>
+                        </span>
+                    </div>
+
+                    <div>
+                        <span>
+                            <input id="twitter" type="text" onChange={e => setData({ ...data, twitter: e.currentTarget.value })} value={twitter} className={`${twitter ? 'notEmpty' : ''}`} />
+                            <label htmlFor="twitter">Twitter</label>
+                        </span>
+                    </div>
+
+                    <div>
+                        <span>
+                            <input id="linkedin" type="text" onChange={e => setData({ ...data, linkedin: e.currentTarget.value })} value={linkedin} className={`${linkedin ? 'notEmpty' : ''}`} />
+                            <label htmlFor="linkedin">LinkedIn</label>
+                        </span>
+                    </div>
+
+                    <div>
+                        <span>
+                            <input id="instagram" type="text" onChange={e => setData({ ...data, instagram: e.currentTarget.value })} value={instagram} className={`${instagram ? 'notEmpty' : ''}`} />
+                            <label htmlFor="instagram">Instagram</label>
+                        </span>
+                    </div>
+
+                    <div style={{ height: 200 }} />
+                </>
+            )}
+
+            {tabActive === 200 && ( //Tema
+                <>
+                    <div className="selectColor">
+                        <label>Cor principal:</label>
+                        <div className="swatch" onClick={() => _handleClick('mainColor')}>
+                            <div className="mainColor" />
+                        </div>
+                    </div>
+                    
+                    <div className="selectColor">
+                        <label>Cor Redes Sociais:</label>
+                        <div className="swatch" onClick={() => _handleClick('socialColor')}>
+                            <div className="socialColor" />
+                        </div>
+                    </div>
+
+                    { displayColorPicker && (
+                        <div className="popover">
+                            <div className="cover" onClick={_handleClose} />
+                            <ChromePicker
+                                color={displayColorPickerTo === 'mainColor' ? mainColor : socialColor}
+                                onChangeComplete={handleChangeComplete}
+                            />
+                        </div>
+                    )}
+                </>
+            )}
+
+            {tabActive === 300 && ( //Foto
+                <>
+                    <div>
+                        <span>
+                            <input id="foto" type="text" onChange={e => setData({ ...data, foto: e.currentTarget.value })} value={foto} className={`${foto ? 'notEmpty' : ''}`} />
+                            <label htmlFor="foto">URL Foto</label>
+                        </span>
+                    </div>
+                </>
             )}
 
             <style jsx>{`
@@ -126,7 +256,7 @@ export function Form() {
                 padding-top: 2rem;
             }
             .container > div {
-                color: #33475b;
+                
                 line-height: 1.625;
                 box-sizing: border-box;
                 width: 100%;
@@ -136,6 +266,7 @@ export function Form() {
 
             .container h4 {
                 padding: 0 2.5rem;
+                margin-bottom: 0;
             }
 
             .container label {
@@ -182,6 +313,39 @@ export function Form() {
                 border-bottom: 1px solid rgb(255, 255, 255);
             }
 
+            //Templates
+            .svgTemplates > div {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 3rem;
+                cursor: pointer;
+            }
+            .svgTemplates > div > div {
+                flex: 1;
+                height: 100%;
+                width: 100%;
+                position: absolute;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: transparent;
+                transition: background .4s;
+            }
+            .svgTemplates > div > div img {
+                width: 30px;
+                height: 30px;
+                transform: scale(0);
+                transition: transform .3s;
+            }
+            .svgTemplates > div.active > div {
+                background: rgba(0,0,0,.4);
+            }
+            .svgTemplates > div.active > div img {
+                transform: scale(1);
+            }
+
             // Color
             .selectColor {
                 display: flex;
@@ -201,6 +365,12 @@ export function Form() {
                 height: 14px;
                 border-radius: 2px;
                 background: ${mainColor};
+            }
+            .socialColor {
+                width: 36px;
+                height: 14px;
+                border-radius: 2px;
+                background: ${socialColor};
             }
             .popover {
                 position: absolute;

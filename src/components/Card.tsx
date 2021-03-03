@@ -3,7 +3,7 @@ import { ProfileContext } from "../contexts/ProfileContext";
 
 export function Card() {
     const { data } = useContext(ProfileContext);
-    const {
+    let {
         nome,
         sobrenome,
         cargo,
@@ -13,8 +13,51 @@ export function Card() {
         celular,
         telefone,
         email,
+        site,
+        endereco01,
+        endereco02,
+        endereco03,
+        endereco04,
+        facebook,
+        twitter,
+        linkedin,
+        instagram,
+        foto,
+        socialColor,
         mainColor
     } = data;
+
+    if (nome === '' &&
+        sobrenome === '' &&
+        cargo === '' &&
+        departamento === '' &&
+        nomeEmpresa === '' &&
+        campoPersonalizado === '' &&
+        celular === '' &&
+        telefone === '' &&
+        email === '' &&
+        site === '' &&
+        endereco01 === '' &&
+        endereco02 === '' &&
+        endereco03 === '' &&
+        endereco04 === ''
+    ) {
+        nome = 'Lorem Ipsum';
+        sobrenome = 'Lorem Ipsum';
+        cargo = 'Lorem Ipsum';
+        departamento = 'Lorem Ipsum';
+        nomeEmpresa = 'Lorem Ipsum';
+        celular = '(11) 9.9999-9999';
+        telefone = '(11) 9999-9999';
+        email = 'lorem@ipsum.com';
+        site = 'www.lorem.com.br';
+        endereco01 = 'Lorem Ipsum';
+        endereco02 = 'Lorem Ipsum';
+        endereco03 = 'Lorem Ipsum';
+        endereco04 = 'Lorem Ipsum';
+    }
+
+    const endereFormatted = [endereco01, endereco02, endereco03, endereco04].filter(Boolean).join(', ');
 
     return (
         <>
@@ -29,14 +72,16 @@ export function Card() {
 
                                             <table cellPadding="0" cellSpacing="0" style={{ verticalAlign: '-webkit-baseline-middle', fontSize: 'medium', fontFamily: 'Arial' }}>
                                                 <tbody>
-                                                    <tr>
-                                                        <td style={{ textAlign: 'center' }}>
-                                                            <img src="/avatar.jpg"
-                                                                role="presentation"
-                                                                width="130"
-                                                                style={{ maxWidth: '128px', display: 'block', borderRadius: '50%' }} />
-                                                        </td>
-                                                    </tr>
+                                                    {foto !== '' && (
+                                                        <tr>
+                                                            <td style={{ textAlign: 'center' }}>
+                                                                <img src={foto}
+                                                                    role="presentation"
+                                                                    width="130"
+                                                                    style={{ maxWidth: '128px', display: 'block', borderRadius: '50%' }} />
+                                                            </td>
+                                                        </tr>
+                                                    )}
                                                     <tr>
                                                         <td height="30">
                                                         </td>
@@ -46,42 +91,66 @@ export function Card() {
                                                             <table cellPadding="0" cellSpacing="0" style={{ verticalAlign: '-webkit-baseline-middle', fontSize: 'medium', fontFamily: 'Arial', display: 'inline-block' }}>
                                                                 <tbody>
                                                                     <tr style={{ textAlign: 'center' }}>
-                                                                        <td>
-                                                                            <a href="//Facebook" color="#6A78D1" style={{ display: 'inline-block', padding: 0, backgroundColor: 'rgb(106, 120, 209)' }}>
-                                                                                <img src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/facebook-icon-2x.png" alt="facebook" color="#6A78D1" height="24" style={{ backgroundColor: 'rgb(106, 120, 209)', maxWidth: 135, display: 'block' }} />
-                                                                            </a>
-                                                                        </td>
-                                                                        <td width="5">
-                                                                            <div>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="//Twitter" color="#6A78D1" style={{ display: 'inline-block', padding: 0, backgroundColor: 'rgb(106, 120, 209)' }}>
-                                                                                <img src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/twitter-icon-2x.png" alt="twitter" color="#6A78D1" height="24" style={{ backgroundColor: 'rgb(106, 120, 209)', maxWidth: 135, display: 'block' }} />
-                                                                            </a>
-                                                                        </td>
-                                                                        <td width="5">
-                                                                            <div>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="//LinkedIn" color="#6A78D1" style={{ display: 'inline-block', padding: 0, backgroundColor: 'rgb(106, 120, 209)' }}>
-                                                                                <img src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/linkedin-icon-2x.png" alt="linkedin" color="#6A78D1" height="24" style={{ backgroundColor: 'rgb(106, 120, 209)', maxWidth: 135, display: 'block' }} />
-                                                                            </a>
-                                                                        </td>
-                                                                        <td width="5">
-                                                                            <div>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="//Instagram" color="#6A78D1" style={{ display: 'inline-block', padding: 0, backgroundColor: 'rgb(106, 120, 209)' }}>
-                                                                                <img src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/instagram-icon-2x.png" alt="instagram" color="#6A78D1" height="24" style={{ backgroundColor: 'rgb(106, 120, 209)', maxWidth: 135, display: 'block' }} />
-                                                                            </a>
-                                                                        </td>
-                                                                        <td width="5">
-                                                                            <div>
-                                                                            </div>
-                                                                        </td>
+
+                                                                        {facebook !== '' && (
+                                                                            <>
+                                                                                <td>
+                                                                                    <a href={facebook} color={socialColor} style={{ display: 'inline-block', padding: 0, backgroundColor: socialColor }}>
+                                                                                        <img src="https://phpstack-467155-1464515.cloudwaysapps.com/icons/facebook-icon-2x.png" alt="facebook" color={socialColor} height="24" style={{ backgroundColor: socialColor, maxWidth: 135, display: 'block' }} />
+                                                                                    </a>
+                                                                                </td>
+                                                                                <td width="5">
+                                                                                    <div>
+                                                                                    </div>
+                                                                                </td>
+                                                                            </>
+                                                                        )}
+
+
+                                                                        {twitter !== '' && (
+                                                                            <>
+                                                                                <td>
+                                                                                    <a href={twitter} color={socialColor} style={{ display: 'inline-block', padding: 0, backgroundColor: socialColor }}>
+                                                                                        <img src="https://phpstack-467155-1464515.cloudwaysapps.com/icons/twitter-icon-2x.png" alt="twitter" color={socialColor} height="24" style={{ backgroundColor: socialColor, maxWidth: 135, display: 'block' }} />
+                                                                                    </a>
+                                                                                </td>
+                                                                                <td width="5">
+                                                                                    <div>
+                                                                                    </div>
+                                                                                </td>
+                                                                            </>
+                                                                        )}
+
+
+                                                                        {linkedin !== '' && (
+                                                                            <>
+                                                                                <td>
+                                                                                    <a href={linkedin} color={socialColor} style={{ display: 'inline-block', padding: 0, backgroundColor: socialColor }}>
+                                                                                        <img src="https://phpstack-467155-1464515.cloudwaysapps.com/icons/linkedin-icon-2x.png" alt="linkedin" color={socialColor} height="24" style={{ backgroundColor: socialColor, maxWidth: 135, display: 'block' }} />
+                                                                                    </a>
+                                                                                </td>
+                                                                                <td width="5">
+                                                                                    <div>
+                                                                                    </div>
+                                                                                </td>
+                                                                            </>
+                                                                        )}
+
+
+                                                                        {instagram !== '' && (
+                                                                            <>
+                                                                                <td>
+                                                                                    <a href={instagram} color={socialColor} style={{ display: 'inline-block', padding: 0, backgroundColor: socialColor }}>
+                                                                                        <img src="https://phpstack-467155-1464515.cloudwaysapps.com/icons/instagram-icon-2x.png" alt="instagram" color={socialColor} height="24" style={{ backgroundColor: socialColor, maxWidth: 135, display: 'block' }} />
+                                                                                    </a>
+                                                                                </td>
+                                                                                <td width="5">
+                                                                                    <div>
+                                                                                    </div>
+                                                                                </td>
+                                                                            </>
+                                                                        )}
+
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
@@ -155,7 +224,7 @@ export function Card() {
                                                                         <tr>
                                                                             <td style={{ verticalAlign: 'bottom' }}>
                                                                                 <span color={mainColor} style={{ display: 'block', backgroundColor: `${mainColor}`, width: 11 }}>
-                                                                                    <img src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/phone-icon-2x.png" color={mainColor} width="13" style={{ display: 'block', backgroundColor: `${mainColor}` }} />
+                                                                                    <img src="https://phpstack-467155-1464515.cloudwaysapps.com/icons/phone-icon-2x.png" color={mainColor} width="13" style={{ display: 'block', backgroundColor: `${mainColor}` }} />
                                                                                 </span>
                                                                             </td>
                                                                         </tr>
@@ -191,8 +260,9 @@ export function Card() {
                                                                         <tr>
                                                                             <td style={{ verticalAlign: 'bottom' }}>
                                                                                 <span color={mainColor} style={{ display: 'block', backgroundColor: `${mainColor}`, width: 11 }}>
-                                                                                    <img src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/email-icon-2x.png" color={mainColor} width="13" style={{ display: 'block', backgroundColor: `${mainColor}` }} />
+                                                                                    <img src="https://phpstack-467155-1464515.cloudwaysapps.com/icons/email-icon-2x.png" color={mainColor} width="13" style={{ display: 'block', backgroundColor: `${mainColor}` }} />
                                                                                 </span>
+
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>
@@ -207,46 +277,52 @@ export function Card() {
                                                         </tr>
                                                     )}
 
-                                                    <tr style={{ verticalAlign: 'middle', height: 25 }}>
-                                                        <td width="30" style={{ verticalAlign: 'middle' }}>
-                                                            <table cellPadding="0" cellSpacing="0" style={{ verticalAlign: '-webkit-baseline-middle', fontSize: 'medium', fontFamily: 'Arial' }}>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td style={{ verticalAlign: 'bottom' }}>
-                                                                            <span color={mainColor} style={{ display: 'block', backgroundColor: `${mainColor}`, width: 11 }}>
-                                                                                <img src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/link-icon-2x.png" color={mainColor} width="13" style={{ display: 'block', backgroundColor: `${mainColor}` }} />
-                                                                            </span>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-                                                        <td style={{ padding: 0 }}>
-                                                            <a href="//url.do.site" color="#000000" style={{ textDecoration: 'none', color: 'rgb(0, 0, 0)', fontSize: 12 }}>
-                                                                <span>url.do.site</span>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr style={{ verticalAlign: 'middle', height: 25 }}>
-                                                        <td width="30" style={{ verticalAlign: 'middle' }}>
-                                                            <table cellPadding="0" cellSpacing="0" style={{ verticalAlign: '-webkit-baseline-middle', fontSize: 'medium', fontFamily: 'Arial' }}>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td style={{ verticalAlign: 'bottom' }}>
-                                                                            <span color={mainColor} style={{ display: 'block', backgroundColor: `${mainColor}`, width: 11 }}>
-                                                                                <img src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/address-icon-2x.png" color={mainColor} width="13" style={{ display: 'block', backgroundColor: `${mainColor}` }} />
-                                                                            </span>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-                                                        <td style={{ padding: 0 }}>
-                                                            <span color="#000000" style={{ fontSize: 12, color: 'rgb(0, 0, 0)' }}>
-                                                                <span>Endereço linha 01, Endereço linha 02</span>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
+                                                    {site !== '' && (
+                                                        <tr style={{ verticalAlign: 'middle', height: 25 }}>
+                                                            <td width="30" style={{ verticalAlign: 'middle' }}>
+                                                                <table cellPadding="0" cellSpacing="0" style={{ verticalAlign: '-webkit-baseline-middle', fontSize: 'medium', fontFamily: 'Arial' }}>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td style={{ verticalAlign: 'bottom' }}>
+                                                                                <span color={mainColor} style={{ display: 'block', backgroundColor: `${mainColor}`, width: 11 }}>
+                                                                                    <img src="https://phpstack-467155-1464515.cloudwaysapps.com/icons/link-icon-2x.png" color={mainColor} width="13" style={{ display: 'block', backgroundColor: `${mainColor}` }} />
+                                                                                </span>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td style={{ padding: 0 }}>
+                                                                <a href={site} color="#000000" style={{ textDecoration: 'none', color: 'rgb(0, 0, 0)', fontSize: 12 }}>
+                                                                    <span>{site}</span>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    )}
+
+                                                    {endereFormatted !== '' && (
+                                                        <tr style={{ verticalAlign: 'middle', height: 25 }}>
+                                                            <td width="30" style={{ verticalAlign: 'middle' }}>
+                                                                <table cellPadding="0" cellSpacing="0" style={{ verticalAlign: '-webkit-baseline-middle', fontSize: 'medium', fontFamily: 'Arial' }}>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td style={{ verticalAlign: 'bottom' }}>
+                                                                                <span color={mainColor} style={{ display: 'block', backgroundColor: `${mainColor}`, width: 11 }}>
+                                                                                    <img src="https://phpstack-467155-1464515.cloudwaysapps.com/icons/address-icon-2x.png" color={mainColor} width="13" style={{ display: 'block', backgroundColor: `${mainColor}` }} />
+                                                                                </span>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td style={{ padding: 0 }}>
+                                                                <span color="#000000" style={{ fontSize: 12, color: 'rgb(0, 0, 0)' }}>
+                                                                    <span>{endereFormatted}</span>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    )}
+
                                                 </tbody>
                                             </table>
 
