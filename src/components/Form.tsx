@@ -84,21 +84,21 @@ export function Form() {
 
             <div>
                 <span>
-                    <input id="celular" type="text" onChange={e => setData({...data, celular: e.currentTarget.value})} value={celular} className={`${campoPersonalizado ? 'notEmpty' : ''}`} />
+                    <input id="celular" type="text" onChange={e => setData({...data, celular: e.currentTarget.value})} value={celular} className={`${celular ? 'notEmpty' : ''}`} />
                     <label htmlFor="celular">Celular</label>
                 </span>
             </div>
 
             <div>
                 <span>
-                    <input id="telefone" type="text" onChange={e => setData({...data, telefone: e.currentTarget.value})} value={telefone} className={`${campoPersonalizado ? 'notEmpty' : ''}`} />
+                    <input id="telefone" type="text" onChange={e => setData({...data, telefone: e.currentTarget.value})} value={telefone} className={`${telefone ? 'notEmpty' : ''}`} />
                     <label htmlFor="telefone">Telefone</label>
                 </span>
             </div>
 
             <div>
                 <span>
-                    <input id="email" type="text" onChange={e => setData({...data, email: e.currentTarget.value})} value={email} className={`${campoPersonalizado ? 'notEmpty' : ''}`} />
+                    <input id="email" type="text" onChange={e => setData({...data, email: e.currentTarget.value})} value={email} className={`${email ? 'notEmpty' : ''}`} />
                     <label htmlFor="email">Email</label>
                 </span>
             </div>
