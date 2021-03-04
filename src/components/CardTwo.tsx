@@ -2,7 +2,8 @@ import { useContext } from "react";
 import { ProfileContext } from "../contexts/ProfileContext";
 
 export function CardTwo() {
-    const { data } = useContext(ProfileContext);
+    const { data, profileActive } = useContext(ProfileContext);
+    const { profiles } = data;
     let {
         nome,
         sobrenome,
@@ -23,8 +24,9 @@ export function CardTwo() {
         linkedin,
         instagram,
         foto,
+        socialColor,
         mainColor
-    } = data;
+    } = profiles[profileActive] ? profiles[profileActive] : profiles[0];
 
     if (nome === '' &&
         sobrenome === '' &&
@@ -247,11 +249,12 @@ export function CardTwo() {
                                                             <table cellPadding={0} cellSpacing={0} className="sc-gPEVay eQYmiW" style={{ verticalAlign: '-webkit-baseline-middle', fontSize: 'medium', fontFamily: 'Arial', display: 'inline-block' }}>
                                                                 <tbody>
                                                                     <tr style={{ textAlign: 'right' }}>
+
                                                                         {facebook !== '' && (
                                                                             <>
                                                                                 <td>
-                                                                                    <a href={facebook} color="#6A78D1" style={{ display: 'inline-block', padding: 0, backgroundColor: 'rgb(106, 120, 209)' }}>
-                                                                                        <img src="https://phpstack-467155-1464515.cloudwaysapps.com/icons/facebook-icon-2x.png" alt="facebook" color="#6A78D1" height="24" style={{ backgroundColor: 'rgb(106, 120, 209)', maxWidth: 135, display: 'block' }} />
+                                                                                    <a href={facebook} color={socialColor} style={{ display: 'inline-block', padding: 0, backgroundColor: socialColor }}>
+                                                                                        <img src="https://phpstack-467155-1464515.cloudwaysapps.com/icons/facebook-icon-2x.png" alt="facebook" color={socialColor} height="24" style={{ backgroundColor: socialColor, maxWidth: 135, display: 'block' }} />
                                                                                     </a>
                                                                                 </td>
                                                                                 <td width="5">
@@ -265,8 +268,8 @@ export function CardTwo() {
                                                                         {twitter !== '' && (
                                                                             <>
                                                                                 <td>
-                                                                                    <a href={twitter} color="#6A78D1" style={{ display: 'inline-block', padding: 0, backgroundColor: 'rgb(106, 120, 209)' }}>
-                                                                                        <img src="https://phpstack-467155-1464515.cloudwaysapps.com/icons/twitter-icon-2x.png" alt="twitter" color="#6A78D1" height="24" style={{ backgroundColor: 'rgb(106, 120, 209)', maxWidth: 135, display: 'block' }} />
+                                                                                    <a href={twitter} color={socialColor} style={{ display: 'inline-block', padding: 0, backgroundColor: socialColor }}>
+                                                                                        <img src="https://phpstack-467155-1464515.cloudwaysapps.com/icons/twitter-icon-2x.png" alt="twitter" color={socialColor} height="24" style={{ backgroundColor: socialColor, maxWidth: 135, display: 'block' }} />
                                                                                     </a>
                                                                                 </td>
                                                                                 <td width="5">
@@ -280,8 +283,8 @@ export function CardTwo() {
                                                                         {linkedin !== '' && (
                                                                             <>
                                                                                 <td>
-                                                                                    <a href={linkedin} color="#6A78D1" style={{ display: 'inline-block', padding: 0, backgroundColor: 'rgb(106, 120, 209)' }}>
-                                                                                        <img src="https://phpstack-467155-1464515.cloudwaysapps.com/icons/linkedin-icon-2x.png" alt="linkedin" color="#6A78D1" height="24" style={{ backgroundColor: 'rgb(106, 120, 209)', maxWidth: 135, display: 'block' }} />
+                                                                                    <a href={linkedin} color={socialColor} style={{ display: 'inline-block', padding: 0, backgroundColor: socialColor }}>
+                                                                                        <img src="https://phpstack-467155-1464515.cloudwaysapps.com/icons/linkedin-icon-2x.png" alt="linkedin" color={socialColor} height="24" style={{ backgroundColor: socialColor, maxWidth: 135, display: 'block' }} />
                                                                                     </a>
                                                                                 </td>
                                                                                 <td width="5">
@@ -295,8 +298,8 @@ export function CardTwo() {
                                                                         {instagram !== '' && (
                                                                             <>
                                                                                 <td>
-                                                                                    <a href={instagram} color="#6A78D1" style={{ display: 'inline-block', padding: 0, backgroundColor: 'rgb(106, 120, 209)' }}>
-                                                                                        <img src="https://phpstack-467155-1464515.cloudwaysapps.com/icons/instagram-icon-2x.png" alt="instagram" color="#6A78D1" height="24" style={{ backgroundColor: 'rgb(106, 120, 209)', maxWidth: 135, display: 'block' }} />
+                                                                                    <a href={instagram} color={socialColor} style={{ display: 'inline-block', padding: 0, backgroundColor: socialColor }}>
+                                                                                        <img src="https://phpstack-467155-1464515.cloudwaysapps.com/icons/instagram-icon-2x.png" alt="instagram" color={socialColor} height="24" style={{ backgroundColor: socialColor, maxWidth: 135, display: 'block' }} />
                                                                                     </a>
                                                                                 </td>
                                                                                 <td width="5">
@@ -305,6 +308,7 @@ export function CardTwo() {
                                                                                 </td>
                                                                             </>
                                                                         )}
+
                                                                     </tr>
                                                                 </tbody>
                                                             </table>

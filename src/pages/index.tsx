@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { ReactNode, useContext, useRef, useState } from "react";
+import { ChangeProfile } from '../components/ChangeProfile';
 import { Form } from '../components/Form';
 import { ShowCards } from '../components/showCards';
 import { Tabs } from '../components/Tabs';
@@ -68,6 +69,8 @@ export default function Home() {
               Assinatura de email <br />
               <small style={{ fontSize: '.8rem', fontWeight: 400 }}>Simples e gratuito</small>
             </span>
+
+            <ChangeProfile />
           </div>
 
           <div className="containerBoxCard">

@@ -25,11 +25,18 @@ interface mailSignatureData {
     mainColor: string;
 }
 
+interface Profiles {
+    profiles: Array<mailSignatureData>;
+    total: number;
+}
+
 interface ProfileContextData {
-    data: mailSignatureData;
+    profileActive: number;
+    data: Profiles;
     tabActive: number;
     card: number;
-    setData: (data: mailSignatureData) => void;
+    setProfileActive: (profileActive: number) => void;
+    setData: (data: Profiles) => void;
     setTabActive: (tabActive: number) => void;
     setcard: (card: number) => void;
     _setCard: (card: number) => boolean;
@@ -43,30 +50,34 @@ export const ProfileContext = createContext({} as ProfileContextData);
 
 export function ProfileProvider({ children }: ProfileProviderProps) {
     const [data, setData] = useState({
-        nome: '',
-        sobrenome: '',
-        cargo: '',
-        departamento: '',
-        nomeEmpresa: '',
-        campoPersonalizado: '',
-        celular: '',
-        telefone: '',
-        email: '',
-        site: '',
-        endereco01: '',
-        endereco02: '',
-        endereco03: '',
-        endereco04: '',
-        facebook: '',
-        twitter: '',
-        linkedin: '',
-        instagram: '',
-        foto: '',
-        modelo: 1,
-        socialColor: '#444',
-        mainColor: '#444',
+        profiles: [{
+            nome: '',
+            sobrenome: '',
+            cargo: '',
+            departamento: '',
+            nomeEmpresa: '',
+            campoPersonalizado: '',
+            celular: '',
+            telefone: '',
+            email: '',
+            site: '',
+            endereco01: '',
+            endereco02: '',
+            endereco03: '',
+            endereco04: '',
+            facebook: '',
+            twitter: '',
+            linkedin: '',
+            instagram: '',
+            foto: '',
+            modelo: 1,
+            socialColor: '#444',
+            mainColor: '#444',
+        }],
+        total: 1
     });
 
+    const [profileActive, setProfileActive] = useState(0);
     const [tabActive, setTabActive] = useState(0);
     const [card, setcard] = useState(1);
 
@@ -82,52 +93,13 @@ export function ProfileProvider({ children }: ProfileProviderProps) {
 
     useEffect(() => {
         const {
-            nome,
-            sobrenome,
-            cargo,
-            departamento,
-            nomeEmpresa,
-            campoPersonalizado,
-            celular,
-            telefone,
-            email,
-            site,
-            endereco01,
-            endereco02,
-            endereco03,
-            endereco04,
-            facebook,
-            twitter,
-            linkedin,
-            instagram,
-            foto,
-            socialColor,
-            mainColor,
+            profiles,
+            total
         } = data;
 
         localStorage.setItem('mailSignatureData', JSON.stringify({
-            nome,
-            sobrenome,
-            cargo,
-            departamento,
-            nomeEmpresa,
-            campoPersonalizado,
-            celular,
-            telefone,
-            email,
-            site,
-            endereco01,
-            endereco02,
-            endereco03,
-            endereco04,
-            facebook,
-            twitter,
-            linkedin,
-            instagram,
-            foto,
-            modelo: card,
-            socialColor,
-            mainColor
+            profiles,
+            total
         }))
     }, [ data, card ])
 
@@ -138,6 +110,8 @@ export function ProfileProvider({ children }: ProfileProviderProps) {
 
     return (
         <ProfileContext.Provider value={{
+            profileActive,
+            setProfileActive,
             data,
             setData,
             tabActive,

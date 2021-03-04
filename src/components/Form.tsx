@@ -7,6 +7,7 @@ export function Form() {
     const [displayColorPickerTo, setdisplayColorPickerTo] = useState('mainColor')
 
     const {
+        profileActive,
         data,
         setData,
         tabActive,
@@ -15,11 +16,13 @@ export function Form() {
     } = useContext(ProfileContext)
 
     const handleChangeComplete = (color) => {
-        if(displayColorPickerTo === 'mainColor')
-            setData({ ...data, mainColor: `rgb(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b})` })
-        else if(displayColorPickerTo === 'socialColor')
-            setData({ ...data, socialColor: `rgb(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b})` })
-
+        if (displayColorPickerTo === 'mainColor') {
+            data.profiles[profileActive].mainColor = `rgb(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b})`
+            setData({ ...data })
+        } else if (displayColorPickerTo === 'socialColor') {
+            data.profiles[profileActive].socialColor = `rgb(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b})`
+            setData({ ...data })
+        }
     };
 
     const _handleClick = (to) => {
@@ -30,6 +33,10 @@ export function Form() {
     const _handleClose = () => {
         setdisplayColorPicker(false)
     };
+
+    const {
+        profiles
+    } = data;
 
     const {
         nome,
@@ -53,7 +60,7 @@ export function Form() {
         foto,
         socialColor,
         mainColor,
-    } = data;
+    } = profiles[profileActive] !== undefined ? profiles[profileActive] : profiles[0];
 
     return (
         <div className="container">
@@ -62,13 +69,13 @@ export function Form() {
                 <div className="svgTemplates">
                     Modelo 01
                     <div className={card === 1 ? 'active' : null} onClick={() => _setCard(1)}>
-                        <div><img src="/templates/active.svg" alt="√"/></div>
+                        <div><img src="/templates/active.svg" alt="√" /></div>
                         <img src="/templates/template-1.svg" alt="Template 01" />
                     </div>
 
                     Modelo 02
                     <div className={card === 2 ? 'active' : null} onClick={() => _setCard(2)}>
-                        <div><img src="/templates/active.svg" alt="√"/></div>
+                        <div><img src="/templates/active.svg" alt="√" /></div>
                         <img src="/templates/template-2.svg" alt="Template 02" />
                     </div>
                 </div>
@@ -78,42 +85,54 @@ export function Form() {
                 <>
                     <div>
                         <span>
-                            <input id="nome" type="text" onChange={e => setData({ ...data, nome: e.currentTarget.value })} value={nome} className={`${nome ? 'notEmpty' : ''}`} />
+                            <input id="nome" type="text" onChange={e => {
+                                data.profiles[profileActive].nome = e.currentTarget.value;
+                                setData({ ...data })}} value={nome} className={`${nome ? 'notEmpty' : ''}`} />
                             <label htmlFor="nome">Nome</label>
                         </span>
                     </div>
 
                     <div>
                         <span>
-                            <input id="sobrenome" type="text" onChange={e => setData({ ...data, sobrenome: e.currentTarget.value })} value={sobrenome} className={`${sobrenome ? 'notEmpty' : ''}`} />
+                            <input id="sobrenome" type="text" onChange={e => {
+                                data.profiles[profileActive].sobrenome = e.currentTarget.value;
+                                setData({ ...data })}} value={sobrenome} className={`${sobrenome ? 'notEmpty' : ''}`} />
                             <label htmlFor="sobrenome">Sobrenome</label>
                         </span>
                     </div>
 
                     <div>
                         <span>
-                            <input id="cargo" type="text" onChange={e => setData({ ...data, cargo: e.currentTarget.value })} value={cargo} className={`${cargo ? 'notEmpty' : ''}`} />
+                            <input id="cargo" type="text" onChange={e => {
+                                data.profiles[profileActive].cargo = e.currentTarget.value;
+                                setData({ ...data })}} value={cargo} className={`${cargo ? 'notEmpty' : ''}`} />
                             <label htmlFor="cargo">Cargo</label>
                         </span>
                     </div>
 
                     <div>
                         <span>
-                            <input id="departamento" type="text" onChange={e => setData({ ...data, departamento: e.currentTarget.value })} value={departamento} className={`${departamento ? 'notEmpty' : ''}`} />
+                            <input id="departamento" type="text" onChange={e => {
+                                data.profiles[profileActive].departamento = e.currentTarget.value;
+                                setData({ ...data })}} value={departamento} className={`${departamento ? 'notEmpty' : ''}`} />
                             <label htmlFor="departamento">Departamento</label>
                         </span>
                     </div>
 
                     <div>
                         <span>
-                            <input id="nomeEmpresa" type="text" onChange={e => setData({ ...data, nomeEmpresa: e.currentTarget.value })} value={nomeEmpresa} className={`${nomeEmpresa ? 'notEmpty' : ''}`} />
+                            <input id="nomeEmpresa" type="text" onChange={e => {
+                                data.profiles[profileActive].nomeEmpresa = e.currentTarget.value;
+                                setData({ ...data })}} value={nomeEmpresa} className={`${nomeEmpresa ? 'notEmpty' : ''}`} />
                             <label htmlFor="nomeEmpresa">Nome da empresa</label>
                         </span>
                     </div>
 
                     <div>
                         <span>
-                            <input id="campoPersonalizado" type="text" onChange={e => setData({ ...data, campoPersonalizado: e.currentTarget.value })} value={campoPersonalizado} className={`${campoPersonalizado ? 'notEmpty' : ''}`} />
+                            <input id="campoPersonalizado" type="text" onChange={e => {
+                                data.profiles[profileActive].campoPersonalizado = e.currentTarget.value;
+                                setData({ ...data })}} value={campoPersonalizado} className={`${campoPersonalizado ? 'notEmpty' : ''}`} />
                             <label htmlFor="campoPersonalizado">Campo personalizado</label>
                         </span>
                     </div>
@@ -122,28 +141,36 @@ export function Form() {
 
                     <div>
                         <span>
-                            <input id="celular" type="text" onChange={e => setData({ ...data, celular: e.currentTarget.value })} value={celular} className={`${celular ? 'notEmpty' : ''}`} />
+                            <input id="celular" type="text" onChange={e => {
+                                data.profiles[profileActive].celular = e.currentTarget.value;
+                                setData({ ...data })}} value={celular} className={`${celular ? 'notEmpty' : ''}`} />
                             <label htmlFor="celular">Celular</label>
                         </span>
                     </div>
 
                     <div>
                         <span>
-                            <input id="telefone" type="text" onChange={e => setData({ ...data, telefone: e.currentTarget.value })} value={telefone} className={`${telefone ? 'notEmpty' : ''}`} />
+                            <input id="telefone" type="text" onChange={e => {
+                                data.profiles[profileActive].telefone = e.currentTarget.value;
+                                setData({ ...data })}} value={telefone} className={`${telefone ? 'notEmpty' : ''}`} />
                             <label htmlFor="telefone">Telefone</label>
                         </span>
                     </div>
 
                     <div>
                         <span>
-                            <input id="email" type="text" onChange={e => setData({ ...data, email: e.currentTarget.value })} value={email} className={`${email ? 'notEmpty' : ''}`} />
+                            <input id="email" type="text" onChange={e => {
+                                data.profiles[profileActive].email = e.currentTarget.value;
+                                setData({ ...data })}} value={email} className={`${email ? 'notEmpty' : ''}`} />
                             <label htmlFor="email">Email</label>
                         </span>
                     </div>
 
                     <div>
                         <span>
-                            <input id="site" type="text" onChange={e => setData({ ...data, site: e.currentTarget.value })} value={site} className={`${site ? 'notEmpty' : ''}`} />
+                            <input id="site" type="text" onChange={e => {
+                                data.profiles[profileActive].site = e.currentTarget.value;
+                                setData({ ...data })}} value={site} className={`${site ? 'notEmpty' : ''}`} />
                             <label htmlFor="site">Site</label>
                         </span>
                     </div>
@@ -152,28 +179,36 @@ export function Form() {
 
                     <div>
                         <span>
-                            <input id="endereco01" type="text" onChange={e => setData({ ...data, endereco01: e.currentTarget.value })} value={endereco01} className={`${endereco01 ? 'notEmpty' : ''}`} />
+                            <input id="endereco01" type="text" onChange={e => {
+                                data.profiles[profileActive].endereco01 = e.currentTarget.value;
+                                setData({ ...data })}} value={endereco01} className={`${endereco01 ? 'notEmpty' : ''}`} />
                             <label htmlFor="endereco01">Endereço linha 1</label>
                         </span>
                     </div>
 
                     <div>
                         <span>
-                            <input id="endereco02" type="text" onChange={e => setData({ ...data, endereco02: e.currentTarget.value })} value={endereco02} className={`${endereco02 ? 'notEmpty' : ''}`} />
+                            <input id="endereco02" type="text" onChange={e => {
+                                data.profiles[profileActive].endereco02 = e.currentTarget.value;
+                                setData({ ...data })}} value={endereco02} className={`${endereco02 ? 'notEmpty' : ''}`} />
                             <label htmlFor="endereco02">Endereço linha 2</label>
                         </span>
                     </div>
 
                     <div>
                         <span>
-                            <input id="endereco03" type="text" onChange={e => setData({ ...data, endereco03: e.currentTarget.value })} value={endereco03} className={`${endereco03 ? 'notEmpty' : ''}`} />
+                            <input id="endereco03" type="text" onChange={e => {
+                                data.profiles[profileActive].endereco03 = e.currentTarget.value;
+                                setData({ ...data })}} value={endereco03} className={`${endereco03 ? 'notEmpty' : ''}`} />
                             <label htmlFor="endereco03">Endereço linha 3</label>
                         </span>
                     </div>
 
                     <div>
                         <span>
-                            <input id="endereco04" type="text" onChange={e => setData({ ...data, endereco04: e.currentTarget.value })} value={endereco04} className={`${endereco04 ? 'notEmpty' : ''}`} />
+                            <input id="endereco04" type="text" onChange={e => {
+                                data.profiles[profileActive].endereco04 = e.currentTarget.value;
+                                setData({ ...data })}} value={endereco04} className={`${endereco04 ? 'notEmpty' : ''}`} />
                             <label htmlFor="endereco04">Endereço linha 4</label>
                         </span>
                     </div>
@@ -182,28 +217,36 @@ export function Form() {
 
                     <div>
                         <span>
-                            <input id="facebook" type="text" onChange={e => setData({ ...data, facebook: e.currentTarget.value })} value={facebook} className={`${facebook ? 'notEmpty' : ''}`} />
+                            <input id="facebook" type="text" onChange={e => {
+                                data.profiles[profileActive].facebook = e.currentTarget.value;
+                                setData({ ...data })}} value={facebook} className={`${facebook ? 'notEmpty' : ''}`} />
                             <label htmlFor="facebook">Facebook</label>
                         </span>
                     </div>
 
                     <div>
                         <span>
-                            <input id="twitter" type="text" onChange={e => setData({ ...data, twitter: e.currentTarget.value })} value={twitter} className={`${twitter ? 'notEmpty' : ''}`} />
+                            <input id="twitter" type="text" onChange={e => {
+                                data.profiles[profileActive].twitter = e.currentTarget.value;
+                                setData({ ...data })}} value={twitter} className={`${twitter ? 'notEmpty' : ''}`} />
                             <label htmlFor="twitter">Twitter</label>
                         </span>
                     </div>
 
                     <div>
                         <span>
-                            <input id="linkedin" type="text" onChange={e => setData({ ...data, linkedin: e.currentTarget.value })} value={linkedin} className={`${linkedin ? 'notEmpty' : ''}`} />
+                            <input id="linkedin" type="text" onChange={e => {
+                                data.profiles[profileActive].linkedin = e.currentTarget.value;
+                                setData({ ...data })}} value={linkedin} className={`${linkedin ? 'notEmpty' : ''}`} />
                             <label htmlFor="linkedin">LinkedIn</label>
                         </span>
                     </div>
 
                     <div>
                         <span>
-                            <input id="instagram" type="text" onChange={e => setData({ ...data, instagram: e.currentTarget.value })} value={instagram} className={`${instagram ? 'notEmpty' : ''}`} />
+                            <input id="instagram" type="text" onChange={e => {
+                                data.profiles[profileActive].instagram = e.currentTarget.value;
+                                setData({ ...data })}} value={instagram} className={`${instagram ? 'notEmpty' : ''}`} />
                             <label htmlFor="instagram">Instagram</label>
                         </span>
                     </div>
@@ -220,7 +263,7 @@ export function Form() {
                             <div className="mainColor" />
                         </div>
                     </div>
-                    
+
                     <div className="selectColor">
                         <label>Cor Redes Sociais:</label>
                         <div className="swatch" onClick={() => _handleClick('socialColor')}>
@@ -244,7 +287,10 @@ export function Form() {
                 <>
                     <div>
                         <span>
-                            <input id="foto" type="text" onChange={e => setData({ ...data, foto: e.currentTarget.value })} value={foto} className={`${foto ? 'notEmpty' : ''}`} />
+                            <input id="foto" type="text" onChange={e => {
+                                profiles[profileActive].foto = e.currentTarget.value;
+                                setData({ ...data })
+                            }} value={foto} className={`${foto ? 'notEmpty' : ''}`} />
                             <label htmlFor="foto">URL Foto</label>
                         </span>
                     </div>

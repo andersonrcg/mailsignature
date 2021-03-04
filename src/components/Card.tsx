@@ -2,7 +2,8 @@ import { useContext } from "react";
 import { ProfileContext } from "../contexts/ProfileContext";
 
 export function Card() {
-    const { data } = useContext(ProfileContext);
+    const { data, profileActive } = useContext(ProfileContext);
+    const { profiles } = data;
     let {
         nome,
         sobrenome,
@@ -25,7 +26,7 @@ export function Card() {
         foto,
         socialColor,
         mainColor
-    } = data;
+    } = profiles[profileActive] ? profiles[profileActive] : profiles[0];
 
     if (nome === '' &&
         sobrenome === '' &&
