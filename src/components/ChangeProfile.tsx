@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { ProfileContext } from "../contexts/ProfileContext";
 
 export function ChangeProfile() {
-    const { setProfileActive, data, setData } = useContext(ProfileContext);
+    const { profileActive, setProfileActive, data, setData } = useContext(ProfileContext);
 
     function _resetProfile() {
         data.total = 1;
@@ -66,18 +66,49 @@ export function ChangeProfile() {
             mainColor: '#444',
         }
         setData({ ...data })
+        setProfileActive(total - 1)
     }
 
     return (
-        <div>
-            <button type="button" onClick={() => _resetProfile()}> Zerar </button>
-            <button type="button" onClick={() => _newProfile()}> Novo </button>
-
+        <div className="container">
+            {/* <button type="button" onClick={() => _resetProfile()}> Zerar </button> */}
             {data.profiles.map((el, i) => {
                 return (
-                    <button type="button" onClick={() => setProfileActive(i)}>{el.nome !== '' ? el.nome : `Perfil ${i + 1}`}</button>
+                    <button key={i} type="button" className={profileActive === i ? 'active' : null} onClick={() => setProfileActive(i)}>{`0${i + 1}`}</button>
                 );
             })}
+
+            <button type="button" onClick={() => _newProfile()}> + Novo </button>
+
+            <style jsx>{`
+                .container {
+                    width: 100%;
+                    position: absolute;
+                    top: -26px;
+                    left: 12px;
+                    z-index: 2;
+                }
+                .container button {
+                    border: 0;
+                    background: white;
+                    padding: .3rem .7rem;
+                    margin-right: 1px;
+                    outline: none;
+                    cursor: pointer;
+                }
+                .container button:first-child {
+                    border-top-left-radius: 4px;
+                }
+                .container button:last-child {
+                    border-top-right-radius: 4px;
+                }
+                
+                .container button.active {
+                    background: linear-gradient(-45deg,rgb(68 136 202),rgb(101 122 208));
+                    color: #fff;
+                    transform: scale(1.2) translateY(-2px);
+                }
+            `}</style>
         </div>
     );
 }

@@ -64,17 +64,16 @@ export default function Home() {
 
         <div className="content">
           <div className="logo">
-            <img src="/logo.svg" alt=""/>
+            <img src="/logo.svg" alt="" />
             <span style={{ color: '#fff', fontSize: '1.2rem', fontWeight: 600, paddingLeft: 10, lineHeight: 1 }}>
               Assinatura de email <br />
               <small style={{ fontSize: '.8rem', fontWeight: 400 }}>Simples e gratuito</small>
             </span>
-
-            <ChangeProfile />
           </div>
 
           <div className="containerBoxCard">
             <div className="boxCard" ref={copyBoxRef}>
+              <ChangeProfile />
               <ShowCards />
             </div>
 
@@ -146,6 +145,8 @@ export default function Home() {
         align-items: center;
       }
       .containerBoxCard > .boxCard {
+        position: relative;
+        min-width: 490px;
         background: #FFF;
         border: solid 1px #d1d3d4;
         padding: 2rem 3rem;
